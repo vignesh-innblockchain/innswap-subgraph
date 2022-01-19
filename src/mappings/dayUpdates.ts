@@ -1,31 +1,31 @@
 /* eslint-disable prefer-const */
 import { BigDecimal, BigInt, EthereumEvent } from '@graphprotocol/graph-ts'
-import { Bundle, Pair, PairDayData, Token, TokenDayData, UniswapDayData, UniswapFactory } from '../types/schema'
+import { Bundle, Pair, PairDayData, Token, TokenDayData, InnswapDayData, InnswapFactory } from '../types/schema'
 import { PairHourData } from './../types/schema'
 import { FACTORY_ADDRESS, ONE_BI, ZERO_BD, ZERO_BI } from './helpers'
 
-export function updateUniswapDayData(event: EthereumEvent): UniswapDayData {
-  let uniswap = UniswapFactory.load(FACTORY_ADDRESS)
+export function updateInnswapDayData(event: EthereumEvent): InnswapDayData {
+  let innswap = InnswapFactory.load(FACTORY_ADDRESS)
   let timestamp = event.block.timestamp.toI32()
   let dayID = timestamp / 86400
   let dayStartTimestamp = dayID * 86400
-  let uniswapDayData = UniswapDayData.load(dayID.toString())
-  if (uniswapDayData === null) {
-    uniswapDayData = new UniswapDayData(dayID.toString())
-    uniswapDayData.date = dayStartTimestamp
-    uniswapDayData.dailyVolumeUSD = ZERO_BD
-    uniswapDayData.dailyVolumeETH = ZERO_BD
-    uniswapDayData.totalVolumeUSD = ZERO_BD
-    uniswapDayData.totalVolumeETH = ZERO_BD
-    uniswapDayData.dailyVolumeUntracked = ZERO_BD
+  let innswapDayData = InnswapDayData.load(dayID.toString())
+  if (innswapDayData === null) {
+    innswapDayData = new InnswapDayData(dayID.toString())
+    innswapDayData.date = dayStartTimestamp
+    innswapDayData.dailyVolumeUSD = ZERO_BD
+    innswapDayData.dailyVolumeETH = ZERO_BD
+    innswapDayData.totalVolumeUSD = ZERO_BD
+    innswapDayData.totalVolumeETH = ZERO_BD
+    innswapDayData.dailyVolumeUntracked = ZERO_BD
   }
 
-  uniswapDayData.totalLiquidityUSD = uniswap.totalLiquidityUSD
-  uniswapDayData.totalLiquidityETH = uniswap.totalLiquidityETH
-  uniswapDayData.txCount = uniswap.txCount
-  uniswapDayData.save()
+  innswapDayData.totalLiquidityUSD = innswap.totalLiquidityUSD
+  innswapDayData.totalLiquidityETH = innswap.totalLiquidityETH
+  innswapDayData.txCount = innswap.txCount
+  innswapDayData.save()
 
-  return uniswapDayData as UniswapDayData
+  return innswapDayData as InnswapDayData
 }
 
 export function updatePairDayData(event: EthereumEvent): PairDayData {
