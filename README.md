@@ -1,4 +1,4 @@
-# Innswap V2 Subgraph
+# Innswap Subgraph
 
 [Innswap](https://innswap.org/) is a decentralized protocol for automated token exchange on Ethereum.
 
